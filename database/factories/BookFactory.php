@@ -20,11 +20,10 @@ class BookFactory extends Factory
         return [
             'category_id' => Category::factory(),
             'title' => fake()->sentence(3),
-            'author' => fake()->name(),
             'isbn' => fake()->unique()->isbn13(),
             'price' => fake()->randomFloat(2, 9.99, 99.99),
             'stock_quantity' => fake()->numberBetween(0, 100),
-            'cover_image' => null,
+            'cover_image_url' => null,
         ];
     }
 }

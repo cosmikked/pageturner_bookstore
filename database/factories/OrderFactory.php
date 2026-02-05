@@ -21,7 +21,7 @@ class OrderFactory extends Factory
             'pending', 'processing', 'completed', 'cancelled'
         ];
         return [
-            'user_id' => User::factory(),
+            'customer_id' => User::factory(),
             'total_amount' => fake()->randomFloat(2),
             'status' => fake()->randomElement($status)
         ];

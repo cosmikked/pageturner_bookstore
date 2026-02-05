@@ -19,7 +19,7 @@ class AuthorFactory extends Factory
         return [
             'last_name' => fake()->lastName(),
             'first_name' => fake()->firstName(),
-            'middle_name' => fake()->text(1),
+            'middle_name' => fake()->randomLetter(),
         ];
     }
 }
