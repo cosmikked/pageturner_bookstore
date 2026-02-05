@@ -4,6 +4,6 @@
     @include('partials.sidebar')
 
     <div class="body">
-        <h1>Dashboard</h1>
+        <h1>Books</h1>
     </div>
 @endsection
