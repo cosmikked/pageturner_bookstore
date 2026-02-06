@@ -19,10 +19,12 @@ class Book extends Model
         'price',
         'stock_quantity',
         'description',
-        'cover_image_url'
+        'cover_image_url',
+        'author',
+        'publication_year'
     ];
     public function category(): BelongsTo {
-        return $this->belongsTo(Book::class);
+        return $this->belongsTo(Category::class);
     }
 
     public function reviews(): HasMany {
