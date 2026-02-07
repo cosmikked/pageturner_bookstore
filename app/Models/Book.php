@@ -42,4 +42,8 @@ class Book extends Model
     public function getAverageRating(): float {
         return $this->reviews()->avg('rating') ?? 0;
     }
+
+    public function reviewsCount(): int {
+        return $this->reviews()->count();
+    }
 }

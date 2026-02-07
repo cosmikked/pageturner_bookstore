@@ -7,15 +7,20 @@
     'review_count' => '',
     'price' => '',
     'in_stock' => '',
-    'url' => null
+    'url' => null,
+    'book_id' => null
 ])
 
-@if($url)
-    <a href="{{ $url }}" class="text-decoration-none text-reset">
-@endif
-    <div class="card shadow rounded-4" style="width: 18rem;">
+<div class="card shadow rounded-4 h-100" style="height: 420px; width: 18rem;">
+    @if($url)
+        <a href="{{ $url }}" class="text-decoration-none text-reset">
+            <img src="{{ $image_url }}" alt="{{ $title }}" class="card-img-top rounded-top-4" style="height: 180px; object-fit: cover;">
+        </a>
+    @else
         <img src="{{ $image_url }}" alt="{{ $title }}" class="card-img-top rounded-top-4" style="height: 180px; object-fit: cover;">
-        <div class="card-body">
+    @endif
+    <div class="card-body d-flex flex-column">
+        <div>
             <div class="mb-2 text-uppercase text-danger fw-semibold small">{{ $category }}</div>
             <h5 class="card-title fw-bold mb-1">{{ $title }}</h5>
             <p class="card-text text-muted mb-2">by {{ $author }}</p>
@@ -27,15 +32,16 @@
             </div>
             <div class="d-flex align-items-center justify-content-between mb-3">
                 <span class="fw-bold fs-4">₱{{ number_format($price, 2) }}</span>
-                <span class="badge bg-success bg-opacity-10 text-success px-3 py-2 fs-6">{{ $in_stock ? 'In Stock' : 'Out of Stock' }}</span>
+                <x-stock-badge :status="$in_stock"/>
             </div>
-            <button class="btn btn-danger w-100 d-flex align-items-center justify-content-center gap-2 fs-5">
-                <i class="bi bi-cart"></i>
-                Add to Cart
-            </button>
+        </div>
+        <div class="mt-auto">
+            <form method="POST" action="{{ route('store.cart.add') }}" class="add-to-cart-form">
+                @csrf
+                <input type="hidden" name="book_id" value="{{ $book_id }}">
+                <x-add-to-cart-button/>
+            </form>
         </div>
     </div>
-@if($url)
-    </a>
-@endif
+</div>
 

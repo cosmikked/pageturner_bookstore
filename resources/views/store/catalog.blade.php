@@ -44,6 +44,7 @@
                                 :price="$book->price"
                                 :in_stock="$book->stock_quantity > 0"
                                 :url="route('store.books.show', $book)"
+                                :book_id="$book->id"
                             />
                         </div>
                     @endforeach

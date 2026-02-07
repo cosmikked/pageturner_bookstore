@@ -20,9 +20,11 @@ class BookController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Book $book)
     {
-        return view('store.books.show');
+        $book->load('reviews');
+        $book->load('category');
+        return view('store.books.show', compact('book'));
     }
 
     public function catalog(Request $request)

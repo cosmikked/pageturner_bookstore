@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\BookController;
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\OrderController;
@@ -19,9 +20,21 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified', 'check.role'])->name('dashboard');
 
 // Catalog
-Route::get('/catalog', [BookController::class, 'catalog'])->name('store.catalog');
-Route::get('/books/{book}', [BookController::class, 'show'])->name('store.books.show');
+//Route::get('/catalog', [BookController::class, 'catalog'])->name('store.catalog');
+//Route::get('/books/{book}', [BookController::class, 'show'])->name('store.books.show');
+//
+//// Cart
+//Route::get('/store/cart', [CartController::class, 'index'])->name('store.cart');
 
+Route::prefix('/store')->name('store.')->group(function () {
+    Route::get('/catalog', [BookController::class, 'catalog'])->name('catalog');
+    Route::get('/books/{book}', [BookController::class, 'show'])->name('books.show');
+    Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
+    Route::post('/cart/add', [CartController::class, 'add'])->name('cart.add');
+    Route::patch('/cart/update/{book}', [CartController::class, 'update'])->name('cart.update');
+    Route::delete('/cart/delete/{book}', [CartController::class, 'remove'])->name('cart.remove');
+    Route::delete('/cart/clear', [CartController::class, 'clear'])->name('cart.clear');
+});
 
 
 
