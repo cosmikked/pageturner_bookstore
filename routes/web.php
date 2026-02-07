@@ -18,21 +18,23 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified', 'check.role'])->name('dashboard');
 
+// Catalog
+Route::get('/catalog', [BookController::class, 'catalog'])->name('store.catalog');
+Route::get('/books/{book}', [BookController::class, 'show'])->name('store.books.show');
 
 
 
 
+////Public Routes (Category Browsing)
+//Route::get('/categories', [CategoryController::class, 'index'])->name('categories.index');
+//Route::get('/category/{category}', [CategoryController::class, 'show'])->name('categories.show');
+//
+//// Public Routes (Book Browsing)
+//Route::get('/books', [BookController::class, 'index'])->name('books.index');
 
-//Public Routes (Category Browsing)
-Route::get('/categories', [CategoryController::class, 'index'])->name('categories.index');
-Route::get('/category/{category}', [CategoryController::class, 'show'])->name('categories.show');
 
-// Public Routes (Book Browsing)
-Route::get('/books', [BookController::class, 'index'])->name('books.index');
-Route::get('/books/{book}', [BookController::class, 'show'])->name('books.show');
-
-// Reviews
-Route::get('/books/{book}/reviews', [ReviewController::class, 'index'])->name('routes.index');
+//// Reviews
+//Route::get('/books/{book}/reviews', [ReviewController::class, 'index'])->name('routes.index');
 
 
 // AUTHENTICATED ROUTES

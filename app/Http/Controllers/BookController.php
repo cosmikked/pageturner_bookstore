@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Book;
+use App\Models\Category;
 use Illuminate\Http\Request;
 
 class BookController extends Controller
@@ -21,6 +23,13 @@ class BookController extends Controller
     public function show(string $id)
     {
         return view('store.books.show');
+    }
+
+    public function catalog(Request $request)
+    {
+        $categories = Category::all();
+        $books = Book::with('category')->get();
+        return view('store.catalog', compact('categories', 'books'));
     }
 
 }
