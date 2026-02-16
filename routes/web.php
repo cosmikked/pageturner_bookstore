@@ -19,13 +19,6 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified', 'check.role'])->name('dashboard');
 
-// Catalog
-//Route::get('/catalog', [BookController::class, 'catalog'])->name('store.catalog');
-//Route::get('/books/{book}', [BookController::class, 'show'])->name('store.books.show');
-//
-//// Cart
-//Route::get('/store/cart', [CartController::class, 'index'])->name('store.cart');
-
 Route::prefix('/store')->name('store.')->group(function () {
     Route::get('/catalog', [BookController::class, 'catalog'])->name('catalog');
     Route::get('/books/{book}', [BookController::class, 'show'])->name('books.show');
@@ -34,20 +27,10 @@ Route::prefix('/store')->name('store.')->group(function () {
     Route::patch('/cart/update/{book}', [CartController::class, 'update'])->name('cart.update');
     Route::delete('/cart/delete/{book}', [CartController::class, 'remove'])->name('cart.remove');
     Route::delete('/cart/clear', [CartController::class, 'clear'])->name('cart.clear');
+    Route::get('/checkout', [OrderController::class, 'create'])->name('checkout')->middleware('auth');
+    Route::post('/checkout', [OrderController::class, 'store'])->name('checkout.store')->middleware('auth');
+    Route::get('/orders/{order}/success', [OrderController::class, 'success'])->name('orders.success')->middleware('auth');
 });
-
-
-
-////Public Routes (Category Browsing)
-//Route::get('/categories', [CategoryController::class, 'index'])->name('categories.index');
-//Route::get('/category/{category}', [CategoryController::class, 'show'])->name('categories.show');
-//
-//// Public Routes (Book Browsing)
-//Route::get('/books', [BookController::class, 'index'])->name('books.index');
-
-
-//// Reviews
-//Route::get('/books/{book}/reviews', [ReviewController::class, 'index'])->name('routes.index');
 
 
 // AUTHENTICATED ROUTES
@@ -81,23 +64,6 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
 
     Route::resource('/categories', AdminCategoryController::class);
     Route::resource('/books', AdminBookController::class);
-
-    // Category Management
-//    Route::get('/categories/create', [CategoryController::class, 'create'])->name('categories.create');
-//    Route::post('/categories', [CategoryController::class, 'store'])->name('categories.store');
-//    Route::get('/categories/{category}/edit', [CategoryController::class, 'edit'])->name('categories.edit');
-//    Route::put('/categories/{category}', [CategoryController::class, 'update'])->name('categories.update');
-//    Route::delete('/categories/{category}', [CategoryController::class, 'destroy'])->name('categories.destroy');
-
-
-    // Book Management
-//    Route::get('/books/create', [BookController::class, 'create'])->name('books.create');
-//    Route::post('/books', [BookController::class, 'store'])->name('books.store');
-//    Route::get('/books/{book}/edit', [BookController::class, 'edit'])->name('books.edit');
-//    Route::put('/books/{book}', [BookController::class, 'update'])->name('books.update');
-//    Route::delete('/books/{book}', [BookController::class, 'destroy'])->name('books.destroy');
-
 });
-
 
 require __DIR__.'/auth.php';

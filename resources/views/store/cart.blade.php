@@ -59,7 +59,7 @@
             </div>
             <div class="col-lg-4">
                 @php
-                    $shipping = $subtotal > 0 ? 10.00 : 0.00;
+                    $shipping = config('shipping.flat_rate');
                     $total = $subtotal + $shipping;
                 @endphp
                 <div class="card cart-summary">
@@ -78,7 +78,9 @@
                             <strong>Total</strong>
                             <strong>${{ number_format($total, 2) }}</strong>
                         </div>
-                        <button class="btn btn-primary w-100" {{ $subtotal == 0 ? 'disabled' : '' }}>Proceed to Checkout</button>
+                        <form method="GET" action="{{ route('store.checkout') }}">
+                            <button class="btn btn-primary w-100" {{ $subtotal == 0 ? 'disabled' : '' }}>Proceed to Checkout</button>
+                        </form>
                     </div>
                 </div>
             </div>

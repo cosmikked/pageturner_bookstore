@@ -16,7 +16,6 @@ class BookController extends Controller
         return view('store.books.index');
     }
 
-
     /**
      * Display the specified resource.
      */
@@ -33,5 +32,4 @@ class BookController extends Controller
         $books = Book::with('category')->get();
         return view('store.catalog', compact('categories', 'books'));
     }
-
 }

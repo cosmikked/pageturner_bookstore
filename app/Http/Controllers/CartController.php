@@ -36,6 +36,7 @@ class CartController extends Controller
         } else {
             // Otherwise, add the book to the cart
             $cart[$bookId] = [
+                'id' => $bookId,
                 'title' => $book->title,
                 'author' => $book->author,
                 'price' => $book->price,
